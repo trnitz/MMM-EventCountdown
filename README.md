@@ -32,7 +32,7 @@ Clone the repository into the MagicMirror `modules` directory:
 
 ```bash
 cd ~/MagicMirror/modules
-git clone https://github.com/trnitz/MMM-EventCountdown/MMM-EventCountdown.git MMM-EventCountdown
+git clone https://github.com/trnitz/MMM-EventCountdown.git MMM-EventCountdown
 ```
 
 On GitHub, use the green **Code** button to copy this repository's HTTPS or SSH clone URL. The final directory must be named `MMM-EventCountdown` so MagicMirror can load the module.
