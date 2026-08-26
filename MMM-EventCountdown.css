@@ -192,6 +192,7 @@
     position: absolute;
     inset: 0;
     color: #aaa;
+    font-family: "Roboto", "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
     font-size: 0.85em;
     font-weight: 300;
     line-height: 1.4em;
@@ -219,4 +220,23 @@
     .event-countdown .ring-container,
     .event-countdown .hourglass-container { width: 58px; }
     .event-countdown .hourglass-svg { width: 58px; height: 58px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .event-countdown .event-summary,
+    .event-countdown .ring-progress,
+    .event-countdown .hourglass-sand,
+    .event-countdown .hourglass-stream {
+        transition: none;
+    }
+
+    .event-countdown .flip-digit.is-flipping .flip-flap-old,
+    .event-countdown .flip-digit.is-flipping .flip-flap-new {
+        animation: none;
+        visibility: hidden;
+    }
+
+    .event-countdown .hourglass-svg.is-flipping {
+        animation: none;
+    }
 }

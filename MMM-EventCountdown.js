@@ -17,11 +17,30 @@ Module.register("MMM-EventCountdown", {
 
     start: function () {
         this.updateDom();
+        this.scheduleNextUpdate();
+    },
 
+    scheduleNextUpdate: function () {
+        clearTimeout(this.updateTimer);
+        var interval = Math.max(250, Number(this.config.updateInterval) || 1000);
+        var delay = interval - (Date.now() % interval);
         var self = this;
-        setInterval(function () {
-            self.updateCountdown();
-        }, this.config.updateInterval);
+        this.updateTimer = setTimeout(function () {
+            try {
+                self.updateCountdown();
+            } finally {
+                self.scheduleNextUpdate();
+            }
+        }, delay);
+    },
+
+    suspend: function () {
+        clearTimeout(this.updateTimer);
+    },
+
+    resume: function () {
+        this.updateCountdown();
+        this.scheduleNextUpdate();
     },
 
     getDom: function () {
@@ -73,6 +92,7 @@ Module.register("MMM-EventCountdown", {
             summaries.appendChild(summary);
         });
         wrapper.appendChild(summaries);
+        this.renderedSummaryDateKey = this.getDateKey(today);
         this.updateSummaryVisibility(summaries);
 
         return wrapper;
@@ -94,6 +114,10 @@ Module.register("MMM-EventCountdown", {
         var eventUtc = Date.UTC(eventDate.getFullYear(), eventDate.getMonth(), eventDate.getDate());
         return Math.round((eventUtc - todayUtc) / (24 * 60 * 60 * 1000))
             + Number(this.config.include_today);
+    },
+
+    getDateKey: function (date) {
+        return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
     },
 
     getSummaryText: function (upcomingEvent, today) {
@@ -158,15 +182,19 @@ Module.register("MMM-EventCountdown", {
         this.updateCountdownDisplay(countdownElement, time, counterStyle);
 
         var summaries = wrapper.querySelector(".event-summaries");
-        var events = this.getUpcomingEvents(today).slice(1);
         var summaryItems = summaries ? summaries.querySelectorAll(".event-summary") : [];
-        if (summaryItems.length !== events.length) {
-            this.updateDom(0);
-            return;
+        var summaryDateKey = this.getDateKey(today);
+        if (summaryDateKey !== this.renderedSummaryDateKey) {
+            var events = this.getUpcomingEvents(today).slice(1);
+            if (summaryItems.length !== events.length) {
+                this.updateDom(0);
+                return;
+            }
+            summaryItems.forEach((item, index) => {
+                item.textContent = this.getSummaryText(events[index], today);
+            });
+            this.renderedSummaryDateKey = summaryDateKey;
         }
-        summaryItems.forEach((item, index) => {
-            item.textContent = this.getSummaryText(events[index], today);
-        });
         this.updateSummaryVisibility(summaries);
     },
 
