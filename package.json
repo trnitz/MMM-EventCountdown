@@ -1,8 +1,8 @@
 {
-  "name": "mmm-holidaycountdown",
+  "name": "mmm-eventcountdown",
   "version": "1.0.0",
   "description": "",
-  "main": "MMM-HolidayCountdown.js",
+  "main": "MMM-EventCountdown.js",
   "scripts": {
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"

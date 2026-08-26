@@ -1,2 +1,39 @@
+# Dependencies
 node_modules/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# Test and coverage output
+coverage/
+.nyc_output/
+
+# Build and temporary files
+dist/
+build/
+tmp/
+temp/
+.cache/
 *.bak
+
+# Editor settings
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Operating-system files
+.DS_Store
+Thumbs.db
+
+# Local MagicMirror test installation
+mm/

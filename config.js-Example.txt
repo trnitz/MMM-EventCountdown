@@ -1,36 +1,17 @@
-Example config.js entry for this module
+Example config.js entry for this module:
 
-There is only 1 field to edit - Example below shows how to add in multiple trips. 
-Module will display the soonest 4 trips, trips in the past will not be displayed.
-
-Example config.js should look like
-
-<<<<<<< HEAD
-
-	{
-    		module: "MMM-HolidayCountdown",
-    		position: "top_right",  // Or wherever you'd like it displayed
-    		header: "Trip Countdown",
-                       config: {
-        		
-				trips: [
-				{ destination: "Steam Rally", date: "2026-06-28" },
-				{ destination: "Lake District", date: "2027-02-16" },
-       			]
-  			}
-	},
-
-=======
 {
-    module: "MMM-HolidayCountdown",
-    position: "top_left",  // Or wherever you'd like it displayed
-    header: "Holiday Countdown",
+    module: "MMM-EventCountdown",
+    position: "top_right",
     config: {
-        include_today: false, // true|false - False keeps the default behavior
-        trips: [
-            { destination: "Tunisia", date: "2023-08-15" },
-            { destination: "Reighton Sands", date: "2022-11-01" }
+        include_today: false,
+        defaultCounterStyle: "digital",
+        events: [
+            { name: "Easter", holiday: "easter", emoji: "🐰", counterStyle: "hourglass" },
+            { name: "US Thanksgiving", rule: { month: 11, weekday: 4, occurrence: 4 }, emoji: "🦃", counterStyle: "rings" },
+            { name: "Birthday", date: "2026-06-13", emoji: "🎂", counterStyle: "flip" },
+            { name: "US Independence Day", date: "2026-07-04", emoji: "🇺🇸", counterStyle: "digital" },
+            { name: "One-time appointment", date: "2027-02-16", repeatYearly: false }
         ]
     }
 },
->>>>>>> bc98fc2c437e3996cc4d1ac74a7f70b1ae49109d

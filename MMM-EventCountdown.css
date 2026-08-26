@@ -1,0 +1,222 @@
+.event-countdown {
+    --countdown-text-color: #f6ae24;
+    --countdown-digit-color: #fff;
+    --countdown-accent-color: #f6ae24;
+    --countdown-sand-color: #e2ca76;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 5px 0;
+    text-align: center;
+}
+
+.event-countdown .event-emoji {
+    margin-bottom: 5px;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+    font-size: 2.5em;
+}
+
+.event-countdown .event-name {
+    max-width: 360px;
+    margin: 0 auto 12px;
+    color: var(--countdown-text-color);
+    font-size: 1.6em;
+    font-weight: 300;
+    letter-spacing: 2px;
+    line-height: 1.25;
+    overflow-wrap: break-word;
+    text-shadow: 0 0 20px var(--countdown-text-color);
+}
+
+.event-countdown .countdown-digital {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    flex-wrap: nowrap;
+}
+
+.event-countdown .event-countdown-unit {
+    box-sizing: border-box;
+    display: flex;
+    flex: 0 0 90px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 88px;
+    padding: 10px 8px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 6px;
+    background: #1b1b1b !important;
+    box-shadow: 0 2px 7px rgba(0, 0, 0, 0.45);
+}
+
+.event-countdown .event-countdown-value {
+    color: var(--countdown-digit-color) !important;
+    font-family: "Roboto Condensed", sans-serif;
+    font-size: 2em;
+    font-weight: 700;
+    line-height: 1;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.45);
+}
+
+.event-countdown .event-countdown-label {
+    margin-top: 7px;
+    color: var(--countdown-digit-color) !important;
+    font-size: 0.55em;
+    letter-spacing: 1px;
+    line-height: 1;
+    text-transform: uppercase;
+}
+
+.event-countdown .countdown-container { display: flex; justify-content: center; width: 100%; }
+
+/* Additional styles adapted from double-ratchet/MMM-AnimatedCountdowns. */
+.event-countdown .countdown-flip,
+.event-countdown .countdown-rings,
+.event-countdown .countdown-hourglass { display: flex; justify-content: center; gap: 7px; width: 100%; }
+
+.event-countdown .flip-group,
+.event-countdown .hourglass-container { display: flex; flex-direction: column; align-items: center; }
+.event-countdown .flip-digits { display: flex; gap: 1px; }
+.event-countdown .flip-digit {
+    position: relative; width: 25px; height: 44px; overflow: hidden;
+    border-radius: 4px; background: #333; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
+    color: var(--countdown-digit-color); font: 700 28px/44px "Roboto Mono", monospace;
+    perspective: 200px; text-align: center; text-shadow: 0 1px 2px #000;
+}
+.event-countdown .flip-digit::after {
+    position: absolute; top: 50%; right: 0; left: 0; height: 1px;
+    background: rgba(0, 0, 0, 0.65); content: "";
+}
+.event-countdown .flip-digit-top,
+.event-countdown .flip-digit-bottom,
+.event-countdown .flip-flap-old,
+.event-countdown .flip-flap-new {
+    position: absolute; right: 0; left: 0; height: 50%; overflow: hidden;
+    background: linear-gradient(to bottom, #444, #2a2a2a);
+    backface-visibility: hidden;
+}
+.event-countdown .flip-digit-top { top: 0; line-height: 44px; transform-origin: bottom; }
+.event-countdown .flip-digit-bottom { bottom: 0; line-height: 0; transform-origin: top; }
+.event-countdown .flip-flap-old {
+    top: 0; z-index: 3; line-height: 44px; transform-origin: bottom;
+    visibility: hidden;
+}
+.event-countdown .flip-flap-new {
+    bottom: 0; z-index: 2; line-height: 0; transform: rotateX(90deg); transform-origin: top;
+    visibility: hidden;
+}
+.event-countdown .flip-digit.is-flipping .flip-flap-old {
+    visibility: visible;
+    animation: event-countdown-flip-old 0.3s ease-in forwards;
+}
+.event-countdown .flip-digit.is-flipping .flip-flap-new {
+    visibility: visible;
+    animation: event-countdown-flip-new 0.3s 0.3s ease-out forwards;
+}
+
+@keyframes event-countdown-flip-old {
+    0% { transform: rotateX(0deg); }
+    100% { transform: rotateX(-90deg); }
+}
+
+@keyframes event-countdown-flip-new {
+    0% { transform: rotateX(90deg); }
+    100% { transform: rotateX(0deg); }
+}
+
+.event-countdown .flip-label,
+.event-countdown .ring-label,
+.event-countdown .hourglass-label {
+    margin-top: 5px; color: var(--countdown-digit-color); font-size: 0.55em;
+    letter-spacing: 1px; text-transform: uppercase;
+}
+.event-countdown .ring-container { position: relative; width: 72px; aspect-ratio: 1; }
+.event-countdown .ring-svg { width: 100%; height: 100%; }
+.event-countdown .ring-bg,
+.event-countdown .ring-progress { fill: none; stroke-width: 6; }
+.event-countdown .ring-bg { stroke: rgba(255, 255, 255, 0.12); }
+.event-countdown .ring-progress {
+    stroke: var(--countdown-accent-color); stroke-linecap: round;
+    filter: drop-shadow(0 0 6px var(--countdown-accent-color));
+    transition: stroke-dashoffset 0.3s ease;
+}
+.event-countdown .ring-content {
+    position: absolute; top: 50%; left: 50%; display: flex; flex-direction: column;
+    align-items: center; transform: translate(-50%, -50%);
+}
+.event-countdown .ring-value,
+.event-countdown .hourglass-value {
+    color: var(--countdown-digit-color); font-size: 1.2em; font-weight: 700; line-height: 1;
+}
+.event-countdown .hourglass-container { width: 68px; }
+.event-countdown .hourglass-svg {
+    display: block; width: 68px; height: 68px;
+    transform-box: fill-box; transform-origin: center;
+}
+.event-countdown .hourglass-svg.is-flipping { animation: event-countdown-hourglass-flip 0.6s ease-in-out; }
+
+@keyframes event-countdown-hourglass-flip {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(180deg); }
+}
+.event-countdown .hourglass-frame { fill: #8b6914; stroke: #6b4f0f; stroke-width: 1; }
+.event-countdown .hourglass-glass {
+    fill: rgba(135, 206, 235, 0.2); stroke: rgba(135, 206, 235, 0.6); stroke-width: 2;
+}
+.event-countdown .hourglass-sand {
+    fill: var(--countdown-sand-color); filter: drop-shadow(0 0 3px var(--countdown-sand-color));
+    transition: y 0.3s ease, height 0.3s ease;
+}
+.event-countdown .hourglass-stream {
+    stroke: var(--countdown-sand-color); stroke-linecap: round; stroke-width: 2;
+    transition: y2 0.3s ease, opacity 0.2s ease;
+}
+
+.event-countdown .event-summaries {
+    position: relative;
+    width: 100%;
+    min-height: 1.4em;
+    margin-top: 12px;
+    overflow: hidden;
+}
+
+.event-countdown .event-summaries:empty {
+    display: none;
+}
+
+.event-countdown .event-summary {
+    position: absolute;
+    inset: 0;
+    color: #aaa;
+    font-size: 0.85em;
+    font-weight: 300;
+    line-height: 1.4em;
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity 1.5s ease, transform 1.5s ease;
+}
+
+.event-countdown .event-summary.is-active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (max-width: 500px) {
+    .event-countdown .countdown-digital { gap: 5px; }
+    .event-countdown .event-countdown-unit {
+        flex-basis: 67px;
+        min-height: 72px;
+        padding: 8px 5px;
+    }
+    .event-countdown .event-countdown-value { font-size: 1.6em; }
+    .event-countdown .flip-digit { width: 20px; height: 38px; font-size: 23px; line-height: 38px; }
+    .event-countdown .flip-digit-top { line-height: 38px; }
+    .event-countdown .flip-flap-old { line-height: 38px; }
+    .event-countdown .ring-container,
+    .event-countdown .hourglass-container { width: 58px; }
+    .event-countdown .hourglass-svg { width: 58px; height: 58px; }
+}
