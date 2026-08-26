@@ -47,11 +47,7 @@ Clone the repository into the MagicMirror `modules` directory:
 
 ```bash
 cd ~/MagicMirror/modules
-<<<<<<< HEAD
 git clone https://github.com/trnitz/MMM-EventCountdown.git MMM-EventCountdown
-=======
-git clone https://github.com/trnitz/MMM-EventCountdown.git
->>>>>>> 5d8dd8f (Several performance related changes for lower powered (Raspberry Pi) devices)
 ```
 
 Restart a PM2-managed MagicMirror instance using its process name:
@@ -70,19 +66,19 @@ npm start
 
 ### Docker MagicMirror
 
-For a running container named `mm`, install the font inside the container:
+For a running container named `magicmirror`, install the font inside the container:
 
 ```bash
-docker exec -u root mm apt update
-docker exec -u root mm apt install -y fonts-noto-color-emoji
-docker exec -u root mm fc-cache -f
-docker exec mm fc-match "Noto Color Emoji"
-docker restart mm
+docker exec -u root magicmirror apt update
+docker exec -u root magicmirror apt install -y fonts-noto-color-emoji
+docker exec -u root magicmirror fc-cache -f
+docker exec magicmirror fc-match "Noto Color Emoji"
+docker restart magicmirror
 ```
 
 The `fc-match` command should report `NotoColorEmoji.ttf`. A host installation is not sufficient because the browser rendering MagicMirror runs inside the container.
 
-Packages installed with `docker exec` remain through ordinary `docker restart mm` operations, but disappear if the container is removed or recreated. For a persistent installation, build a small custom image:
+Packages installed with `docker exec` remain through ordinary `docker restart magicmirror` operations, but disappear if the container is removed or recreated. For a persistent installation, build a small custom image:
 
 ```dockerfile
 FROM karsten13/magicmirror:latest
@@ -112,15 +108,15 @@ Build and recreate the container:
 ```bash
 docker compose build --pull
 docker compose up -d --force-recreate
-docker exec mm fc-match "Noto Color Emoji"
+docker exec magicmirror fc-match "Noto Color Emoji"
 ```
 
 Clone the module into the host directory mounted at `/opt/magic_mirror/modules`. For the example Compose layout in this repository:
 
 ```bash
-cd mm/modules
+cd /opt/magic_mirror/modules
 git clone https://github.com/trnitz/MMM-EventCountdown.git
-docker restart mm
+docker restart magicmirror
 ```
 
 The final module directory must be named `MMM-EventCountdown` so MagicMirror can load it.
@@ -285,8 +281,8 @@ This module uses native Unicode emojis and expects `Noto Color Emoji` to be inst
 # Standalone
 fc-match "Noto Color Emoji"
 
-# Docker container named mm
-docker exec mm fc-match "Noto Color Emoji"
+# Docker container named magicmirror
+docker exec magicmirror fc-match "Noto Color Emoji"
 ```
 
 After installing the font, restart the standalone MagicMirror process or run `docker restart mm` for Docker. The configuration file must be UTF-8 encoded.
