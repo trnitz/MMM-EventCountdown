@@ -5,6 +5,7 @@ Example config.js entry for this module:
     position: "top_right",
     config: {
         include_today: false,
+        showSeconds: true,
         defaultCounterStyle: "digital",
         events: [
             { name: "Easter", holiday: "easter", emoji: "🐰", counterStyle: "hourglass" },

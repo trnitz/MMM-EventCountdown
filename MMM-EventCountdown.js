@@ -12,7 +12,8 @@ Module.register("MMM-EventCountdown", {
         events: [],
         updateInterval: 1000,
         summaryDisplaySeconds: 5,
-        defaultCounterStyle: "digital"
+        defaultCounterStyle: "digital",
+        showSeconds: true
     },
 
     start: function () {
@@ -23,6 +24,10 @@ Module.register("MMM-EventCountdown", {
     scheduleNextUpdate: function () {
         clearTimeout(this.updateTimer);
         var interval = Math.max(250, Number(this.config.updateInterval) || 1000);
+        if (this.config.showSeconds === false) {
+            var summaryInterval = Math.max(1, Number(this.config.summaryDisplaySeconds) || 5) * 1000;
+            interval = Math.max(interval, Math.min(60000, summaryInterval));
+        }
         var delay = interval - (Date.now() % interval);
         var self = this;
         this.updateTimer = setTimeout(function () {
@@ -204,12 +209,13 @@ Module.register("MMM-EventCountdown", {
     },
 
     getTimeValues: function (time) {
-        return [
+        var values = [
             { value: time.days, label: "days", digits: 3, maximum: 365 },
             { value: time.hours, label: "hours", digits: 2, maximum: 24 },
             { value: time.minutes, label: "mins", digits: 2, maximum: 60 },
             { value: time.seconds, label: "secs", digits: 2, maximum: 60 }
         ];
+        return this.config.showSeconds !== false ? values : values.slice(0, 3);
     },
 
     buildCountdownHtml: function (time, style) {
